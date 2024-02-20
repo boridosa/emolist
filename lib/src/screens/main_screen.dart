@@ -1,19 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
+
+import '../constants/route_path.dart';
 
 class MainScreen extends StatelessWidget {
   final Widget body;
+  final RoutePath currentRoute;
 
-  const MainScreen({
+  MainScreen({
     super.key,
     required this.body,
-  });
+    required String currentPath,
+  }) : currentRoute = RoutePath.values.firstWhere(
+          (route) => currentPath.startsWith(route.path),
+          orElse: () => RoutePath.home,
+        );
 
   @override
   Widget build(BuildContext context) {
-    const selectedIndex = 0;
-
     return Scaffold(
       body: body,
       bottomNavigationBar: NavigationBar(
@@ -31,26 +36,28 @@ class MainScreen extends StatelessWidget {
             label: '플레이리스트',
           ),
         ],
-        selectedIndex: selectedIndex,
+        selectedIndex: currentRoute.index,
         onDestinationSelected: (index) {
-          if (kDebugMode) {
-            print(index);
-          }
+          final destination = _getDestination(index);
+          context.go(destination.path);
         },
       ),
-      floatingActionButton: switch (selectedIndex) {
-        0 || 1 => FloatingActionButton(
+      floatingActionButton: switch (currentRoute) {
+        RoutePath.home || RoutePath.diary => FloatingActionButton(
             onPressed: () {},
             tooltip: '일기 작성',
             child: const FaIcon(FontAwesomeIcons.pen),
           ),
-        2 => FloatingActionButton(
+        RoutePath.playlist => FloatingActionButton(
             onPressed: () {},
             tooltip: '플레이리스트 내보내기',
             child: const FaIcon(FontAwesomeIcons.share),
           ),
-        _ => null,
       },
     );
+  }
+
+  RoutePath _getDestination(index) {
+    return RoutePath.values.elementAtOrNull(index) ?? RoutePath.home;
   }
 }

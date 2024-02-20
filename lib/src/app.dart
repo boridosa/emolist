@@ -32,6 +32,7 @@ class App extends StatelessWidget {
       navigatorKey: mainNavigatorKey,
       builder: (context, state, child) => MainScreen(
         body: child,
+        currentPath: state.uri.path,
       ),
       routes: [
         _createHomeRoute(
