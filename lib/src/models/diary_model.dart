@@ -1,6 +1,5 @@
-import 'package:emolist/src/models/track_model.dart';
-
 import '../constants/emotion.dart';
+import 'track_model.dart';
 
 class DiaryModel {
   final String id;
