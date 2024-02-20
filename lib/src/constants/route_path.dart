@@ -1,5 +1,3 @@
-import 'dart:core';
-
 enum RoutePath {
   home('/home'),
   diary('/diary'),
