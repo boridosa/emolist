@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'constants/route_path.dart';
+import 'screens/diary_screen.dart';
+import 'screens/home_screen.dart';
 import 'screens/main_screen.dart';
+import 'screens/playlist_screen.dart';
 
 final mainNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'main shell');
 
@@ -55,7 +58,7 @@ class App extends StatelessWidget {
       path: RoutePath.home.path,
       pageBuilder: (context, state) => NoTransitionPage(
         key: state.pageKey,
-        child: const Center(child: Text('Home')),
+        child: const HomeScreen(),
       ),
       parentNavigatorKey: parentNavigatorKey,
     );
@@ -68,7 +71,7 @@ class App extends StatelessWidget {
       path: RoutePath.diary.path,
       pageBuilder: (context, state) => NoTransitionPage(
         key: state.pageKey,
-        child: const Center(child: Text('Diary')),
+        child: const DiaryScreen(),
       ),
       parentNavigatorKey: parentNavigatorKey,
     );
@@ -81,7 +84,7 @@ class App extends StatelessWidget {
       path: RoutePath.playlist.path,
       pageBuilder: (context, state) => NoTransitionPage(
         key: state.pageKey,
-        child: const Center(child: Text('Playlist')),
+        child: const PlaylistScreen(),
       ),
       parentNavigatorKey: parentNavigatorKey,
     );
