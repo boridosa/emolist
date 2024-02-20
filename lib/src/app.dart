@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/main_screen.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -11,7 +13,9 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Placeholder(),
+      home: const MainScreen(
+        body: Placeholder(),
+      ),
     );
   }
 }
