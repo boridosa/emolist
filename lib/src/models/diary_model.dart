@@ -8,6 +8,13 @@ class DiaryModel {
   final Map<Emotion, double> emotions;
   final List<TrackModel> playlist;
 
+  const DiaryModel({
+    required this.id,
+    required this.date,
+    required this.content,
+    required this.emotions,
+    required this.playlist});
+
   DiaryModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         date = DateTime.parse(json['date']),

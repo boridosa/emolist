@@ -4,9 +4,17 @@ class TrackModel {
   final List<String> artists;
   final String cover;
   final bool liked;
-
-  TrackModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+ 
+  const TrackModel({
+    required this.id,
+    required this.title,
+    required this.artists,
+    required this.cover,
+    required this.liked,
+  });
+  
+  TrackModel.fromJson(Map<String, dynamic> json): 
+        id = json['id'],
         title = json['title'],
         artists = List.from(json['artists']),
         cover = json['cover'],
