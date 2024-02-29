@@ -17,7 +17,8 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       title: 'Emolist',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        scaffoldBackgroundColor: const Color(0xFF252525),
         useMaterial3: true,
       ),
       routerConfig: GoRouter(
