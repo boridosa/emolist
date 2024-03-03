@@ -1,3 +1,4 @@
+import 'package:emolist/src/screens/diary_write_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -44,13 +45,27 @@ class MainScreen extends StatelessWidget {
       ),
       floatingActionButton: switch (currentRoute) {
         RoutePath.home || RoutePath.diary => FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DiaryWriteScreen(
+                          id: 'your_id_value',
+                          date: DateTime.now(),
+                          content: '',
+                          emotions: const {},
+                          playlist: const [])));
+            },
             tooltip: '일기 작성',
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
             child: const FaIcon(FontAwesomeIcons.pen),
           ),
         RoutePath.playlist => FloatingActionButton(
             onPressed: () {},
             tooltip: '플레이리스트 내보내기',
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100)),
             child: const FaIcon(FontAwesomeIcons.share),
           ),
       },
