@@ -33,16 +33,15 @@ class HomeScreen extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
-    const double width = 200;
+    const double width = 250;
     const double height = 24;
     final borderRadius = BorderRadius.circular(10);
     final emotions = {
-      Emotion.love: 0.33,
+      Emotion.love: 0.41,
       Emotion.happiness: 0.21,
       Emotion.anger: 0.17,
       Emotion.sadness: 0.13,
       Emotion.hurt: 0.08,
-      Emotion.fear: 0.06,
     };
 
     return Scaffold(
@@ -69,10 +68,14 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          //const SizedBox(height: 10),
-          Expanded(child: makePlayList(dummyplaylists)), // 더미데이터
-
           const SizedBox(height: 10),
+
+          Expanded(
+            child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: makePlayList(dummyplaylists)),
+          ), // 더미데이터
+
           const Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
@@ -86,74 +89,83 @@ class HomeScreen extends StatelessWidget {
           ),
           // 감정 막대 그래프
           const SizedBox(height: 5),
-          barChart(emotions, width, height, borderRadius),
-          const Text(
-            '지난 1년 동안 사랑을 많이 느끼셨군요!',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.green,
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: makeBarChart(emotions, width, height, borderRadius),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          const Center(
+            child: Text(
+              '지난 1년 동안 사랑을 많이 느끼셨군요!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.green,
+              ),
             ),
+          ),
+          const SizedBox(
+            height: 50,
           ),
         ],
       ),
     );
   }
 
-  Padding barChart(Map<Emotion, double> emotions, double width, double height,
-      BorderRadius borderRadius) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: Column(
-        children: [
-          for (final entry in emotions.entries)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 40,
-                    child: Text(
-                      entry.key.name,
-                      textAlign: TextAlign.end,
-                      style: const TextStyle(color: Colors.white),
-                    ),
+  Column makeBarChart(Map<Emotion, double> emotions, double width,
+      double height, BorderRadius borderRadius) {
+    return Column(
+      children: [
+        for (final entry in emotions.entries)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    entry.key.name,
+                    textAlign: TextAlign.end,
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  const SizedBox(width: 8),
-                  Stack(
-                    children: [
-                      Container(
-                        width: width,
-                        height: height,
-                        decoration: BoxDecoration(
-                          borderRadius: borderRadius,
-                          color: Colors.grey,
+                ),
+                const SizedBox(width: 8),
+                Stack(
+                  children: [
+                    Container(
+                      width: width,
+                      height: height,
+                      decoration: BoxDecoration(
+                        borderRadius: borderRadius,
+                        color: const Color(0xff434343),
+                      ),
+                    ),
+                    Container(
+                      width: width * entry.value,
+                      height: height,
+                      decoration: BoxDecoration(
+                        borderRadius: borderRadius,
+                        color: Colors.green,
+                      ),
+                    ),
+                    SizedBox(
+                      width: width,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Text(
+                          '${(entry.value * 100).round()}%',
+                          textAlign: TextAlign.end,
                         ),
                       ),
-                      Container(
-                        width: width * entry.value,
-                        height: height,
-                        decoration: BoxDecoration(
-                          borderRadius: borderRadius,
-                          color: Colors.greenAccent,
-                        ),
-                      ),
-                      SizedBox(
-                        width: width,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Text(
-                            '${(entry.value * 100).round()}%',
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-        ],
-      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+      ],
     );
   }
 
@@ -170,7 +182,7 @@ class HomeScreen extends StatelessWidget {
             cover: playlist.cover,
             liked: playlist.liked);
       },
-      separatorBuilder: (context, index) => const SizedBox(width: 0),
+      separatorBuilder: (context, index) => const SizedBox(width: 20),
     );
   }
 }
