@@ -62,7 +62,31 @@ class MainScreen extends StatelessWidget {
             child: const FaIcon(FontAwesomeIcons.pen),
           ),
         RoutePath.playlist => FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('멜론 플레이리스트 내보내기'),
+                    content: const Text('선택한 곡을 플레이리스트로 내보내시겠습니까?'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('취소'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('확인'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
             tooltip: '플레이리스트 내보내기',
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(100)),
