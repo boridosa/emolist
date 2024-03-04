@@ -22,10 +22,10 @@ class Playlist extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 150,
+          width: 120,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             color: Colors.transparent,
           ),
           child: Image.asset(cover),
