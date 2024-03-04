@@ -3,7 +3,6 @@ import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/src/screens/diary_detail_screen.dart';
 import 'package:emolist/widgets/track_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Diary extends StatelessWidget {
   final String id;

@@ -1,7 +1,6 @@
 import 'package:emolist/src/constants/emotion.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/src/screens/diary_write_screen.dart';
-import 'package:emolist/widgets/track_widget.dart';
 import 'package:flutter/material.dart';
 
 class DiaryDetailScreen extends StatefulWidget {
@@ -61,6 +60,8 @@ class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: null,
+      floatingActionButton: null,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
