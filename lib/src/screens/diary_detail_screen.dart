@@ -2,6 +2,7 @@ import 'package:emolist/src/constants/emotion.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/src/screens/diary_write_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DiaryDetailScreen extends StatefulWidget {
   final String id;
@@ -25,6 +26,8 @@ class DiaryDetailScreen extends StatefulWidget {
 class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('yyyy.MM.dd E').format(widget.date);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.grey),
@@ -71,7 +74,7 @@ class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${widget.date}',
+                  formattedDate,
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,

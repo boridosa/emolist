@@ -3,6 +3,7 @@ import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/src/screens/diary_detail_screen.dart';
 import 'package:emolist/widgets/track_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Diary extends StatelessWidget {
   final String id;
@@ -21,6 +22,7 @@ class Diary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('yyyy.MM.dd E').format(date);
     final List<TrackModel> dummytracks = [
       const TrackModel(
           id: '1',
@@ -61,7 +63,7 @@ class Diary extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('$date',
+                      Text(formattedDate,
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,

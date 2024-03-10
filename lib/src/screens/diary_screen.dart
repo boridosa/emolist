@@ -17,15 +17,14 @@ class DiaryScreen extends StatelessWidget {
     final List<DiaryModel> dummydiaries = [
       DiaryModel(
         id: '1',
-        date: DateTime.now(),
+        date: DateTime(2024, 3, 1),
         content: '가나다라마바사아자차카타파하',
         emotions: {
-          Emotion.love: 0.33,
+          Emotion.love: 0.41,
           Emotion.happiness: 0.21,
           Emotion.anger: 0.17,
           Emotion.sadness: 0.13,
           Emotion.hurt: 0.08,
-          Emotion.fear: 0.06,
         },
         playlist: [
           const TrackModel(
@@ -50,16 +49,15 @@ class DiaryScreen extends StatelessWidget {
       ),
       DiaryModel(
         id: '1',
-        date: DateTime.now(),
+        date: DateTime(2024, 3, 2),
         content:
             '가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하',
         emotions: {
-          Emotion.love: 0.33,
+          Emotion.love: 0.41,
           Emotion.happiness: 0.21,
           Emotion.anger: 0.17,
           Emotion.sadness: 0.13,
           Emotion.hurt: 0.08,
-          Emotion.fear: 0.06,
         },
         playlist: const [
           TrackModel(
@@ -84,15 +82,14 @@ class DiaryScreen extends StatelessWidget {
       ),
       DiaryModel(
         id: '1',
-        date: DateTime.now(),
+        date: DateTime(2024, 3, 5),
         content: '가나다라마바사아자차카타파하',
         emotions: {
-          Emotion.love: 0.33,
+          Emotion.love: 0.41,
           Emotion.happiness: 0.21,
           Emotion.anger: 0.17,
           Emotion.sadness: 0.13,
           Emotion.hurt: 0.08,
-          Emotion.fear: 0.06,
         },
         playlist: [
           const TrackModel(
