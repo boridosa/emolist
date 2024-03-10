@@ -1,15 +1,16 @@
 import 'package:emolist/src/constants/emotion.dart';
+import 'package:emolist/src/models/diary_model.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:flutter/material.dart';
 
-class DiaryWriteScreen extends StatelessWidget {
+class DiaryWriteScreen extends StatefulWidget {
   final String id;
   final DateTime date;
   final String content;
   final Map<Emotion, double> emotions;
   final List<TrackModel> playlist;
 
-  DiaryWriteScreen(
+  const DiaryWriteScreen(
       {super.key,
       required this.id,
       required this.date,
@@ -17,11 +18,16 @@ class DiaryWriteScreen extends StatelessWidget {
       required this.emotions,
       required this.playlist});
 
+  @override
+  State<DiaryWriteScreen> createState() => _DiaryWriteScreenState();
+}
+
+class _DiaryWriteScreenState extends State<DiaryWriteScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = content;
+    _controller.text = widget.content;
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.grey),
@@ -29,7 +35,14 @@ class DiaryWriteScreen extends StatelessWidget {
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context, _controller.text);
+              final newDiary = DiaryModel(
+                id: 'id',
+                date: DateTime.now(),
+                content: _controller.text,
+                emotions: const {},
+                playlist: const [],
+              );
+              Navigator.pop(context, newDiary);
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -53,7 +66,7 @@ class DiaryWriteScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '$date',
+                  '${widget.date}',
                   style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,

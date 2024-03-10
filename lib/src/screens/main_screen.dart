@@ -1,4 +1,7 @@
+import 'package:emolist/src/models/diary_model.dart';
+import 'package:emolist/src/screens/diary_screen.dart';
 import 'package:emolist/src/screens/diary_write_screen.dart';
+import 'package:emolist/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +26,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: body,
       bottomNavigationBar: NavigationBar(
+        backgroundColor: black03,
         destinations: const [
           NavigationDestination(
             icon: FaIcon(FontAwesomeIcons.house),
@@ -45,16 +49,26 @@ class MainScreen extends StatelessWidget {
       ),
       floatingActionButton: switch (currentRoute) {
         RoutePath.home || RoutePath.diary => FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DiaryWriteScreen(
-                          id: 'your_id_value',
-                          date: DateTime.now(),
-                          content: '',
-                          emotions: const {},
-                          playlist: const [])));
+            onPressed: () async {
+              final DiaryModel? diaryContent = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiaryWriteScreen(
+                    id: 'your_id_value',
+                    date: DateTime.now(),
+                    content: '',
+                    emotions: const {},
+                    playlist: const [],
+                  ),
+                ),
+              );
+              if (diaryContent != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DiaryScreen(newDiaryContent: diaryContent)));
+              }
             },
             tooltip: '일기 작성',
             shape: RoundedRectangleBorder(
