@@ -1,5 +1,6 @@
 import 'package:emolist/src/constants/emotion.dart';
 import 'package:emolist/src/models/track_model.dart';
+import 'package:emolist/theme/colors.dart';
 import 'package:emolist/widgets/playlist_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -33,24 +34,37 @@ class HomeScreen extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
-    const double width = 250;
+    final width = MediaQuery.of(context).size.width * 0.75;
     const double height = 24;
     final borderRadius = BorderRadius.circular(10);
     final emotions = {
-      Emotion.love: 0.41,
-      Emotion.happiness: 0.21,
+      Emotion.love: 0.21,
+      Emotion.happiness: 0.41,
       Emotion.anger: 0.17,
       Emotion.sadness: 0.13,
       Emotion.hurt: 0.08,
     };
 
+    double maxEmotionValue = 0;
+    Emotion? maxEmotion;
+    emotions.forEach((emotion, value) {
+      if (value > maxEmotionValue) {
+        maxEmotionValue = value;
+        maxEmotion = emotion;
+      }
+    });
+
+    String message = '';
+    if (maxEmotion != null) {
+      message = '지난 1년동안 ${emotionToString(maxEmotion!)}을(를) 가장 많이 느끼셨군요!';
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           '홈',
           style: TextStyle(color: Colors.white, fontSize: 32),
         ),
-        backgroundColor: const Color(0xFF1D1D1D),
+        backgroundColor: black01,
         elevation: 2,
       ),
       body: Column(
@@ -78,13 +92,27 @@ class HomeScreen extends StatelessWidget {
 
           const Padding(
             padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'EMOTION',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            child: Row(
+              children: [
+                Text(
+                  'EMOTION',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  '2023.02.18 ~ 2024.02.20',
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: grey02),
+                ),
+              ],
             ),
           ),
           // 감정 막대 그래프
@@ -96,11 +124,11 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          const Center(
+          Center(
             child: Text(
-              '지난 1년 동안 사랑을 많이 느끼셨군요!',
+              message,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
                 color: Colors.green,
               ),
@@ -139,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                       height: height,
                       decoration: BoxDecoration(
                         borderRadius: borderRadius,
-                        color: const Color(0xff434343),
+                        color: black03,
                       ),
                     ),
                     Container(
@@ -147,7 +175,7 @@ class HomeScreen extends StatelessWidget {
                       height: height,
                       decoration: BoxDecoration(
                         borderRadius: borderRadius,
-                        color: Colors.green,
+                        color: green01,
                       ),
                     ),
                     SizedBox(
@@ -157,6 +185,7 @@ class HomeScreen extends StatelessWidget {
                         child: Text(
                           '${(entry.value * 100).round()}%',
                           textAlign: TextAlign.end,
+                          style: const TextStyle(color: grey02),
                         ),
                       ),
                     )
@@ -167,6 +196,23 @@ class HomeScreen extends StatelessWidget {
           )
       ],
     );
+  }
+
+  String emotionToString(Emotion emotion) {
+    switch (emotion) {
+      case Emotion.love:
+        return '사랑';
+      case Emotion.happiness:
+        return '행복';
+      case Emotion.anger:
+        return '분노';
+      case Emotion.sadness:
+        return '슬픔';
+      case Emotion.hurt:
+        return '상처';
+      default:
+        return '알 수 없는 감정';
+    }
   }
 
   ListView makePlayList(List<TrackModel> playlists) {
