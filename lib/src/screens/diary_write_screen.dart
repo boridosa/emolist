@@ -2,15 +2,17 @@ import 'package:emolist/src/constants/emotion.dart';
 import 'package:emolist/src/models/diary_model.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 class DiaryWriteScreen extends StatefulWidget {
   final String id;
-  final DateTime date;
+  DateTime date;
   final String content;
   final Map<Emotion, double> emotions;
   final List<TrackModel> playlist;
 
-  const DiaryWriteScreen(
+  DiaryWriteScreen(
       {super.key,
       required this.id,
       required this.date,
@@ -27,6 +29,7 @@ class _DiaryWriteScreenState extends State<DiaryWriteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('yyyy.MM.dd E').format(widget.date);
     _controller.text = widget.content;
     return Scaffold(
       appBar: AppBar(
@@ -39,8 +42,8 @@ class _DiaryWriteScreenState extends State<DiaryWriteScreen> {
                 id: 'id',
                 date: DateTime.now(),
                 content: _controller.text,
-                emotions: const {},
-                playlist: const [],
+                emotions: {},
+                playlist: [],
               );
               Navigator.pop(context, newDiary);
             },
@@ -65,12 +68,34 @@ class _DiaryWriteScreenState extends State<DiaryWriteScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '${widget.date}',
-                  style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      formattedDate,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(2015),
+                          lastDate: DateTime(2099),
+                          initialDatePickerMode: DatePickerMode.year,
+                        );
+                        if (pickedDate != null && pickedDate != widget.date) {
+                          setState(() {
+                            widget.date = pickedDate;
+                            formattedDate =
+                                DateFormat('yyyy.MM.dd E').format(widget.date);
+                          });
+                        }
+                      },
+                      icon: const FaIcon(FontAwesomeIcons.pen),
+                    ),
+                  ],
                 ),
                 const SizedBox(
                   height: 10,
