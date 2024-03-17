@@ -3,6 +3,7 @@ import 'package:emolist/src/models/diary_model.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/widgets/diary_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DiaryScreen extends StatefulWidget {
   //final DateTime currentDate;
@@ -15,10 +16,12 @@ class DiaryScreen extends StatefulWidget {
 }
 
 class _DiaryScreenState extends State<DiaryScreen> {
+  late DateTime selectedDate;
+  late String formattedDate;
   final List<DiaryModel> dummydiaries = [
     DiaryModel(
       id: '1',
-      date: DateTime(2024, 3, 1),
+      date: DateTime(2022, 3, 1),
       content: '가나다라마바사아자차카타파하',
       emotions: {
         Emotion.love: 0.41,
@@ -120,6 +123,8 @@ class _DiaryScreenState extends State<DiaryScreen> {
   @override
   void initState() {
     super.initState();
+    selectedDate = DateTime.now();
+    formattedDate = DateFormat('yyyy년 MM월').format(selectedDate);
     if (widget.newDiaryContent != null) {
       dummydiaries.add(widget.newDiaryContent!);
     }
@@ -127,56 +132,59 @@ class _DiaryScreenState extends State<DiaryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDate = DateTime.now();
-    final selectedYear = selectedDate.year;
-    final selectedMonth = selectedDate.month;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1D1D1D),
         elevation: 2,
-        actions: <Widget>[
-          TextButton(
-            onPressed: () async {
-              final DateTime? pickedDate = await showDatePicker(
-                context: context,
-                firstDate: DateTime(2015),
-                lastDate: DateTime(2099),
-                initialDatePickerMode: DatePickerMode.year,
-              );
-              if (pickedDate != null && pickedDate != selectedDate) {
+        title: TextButton(
+          onPressed: () async {
+            final DateTime? pickedDate = await showDatePicker(
+              context: context,
+              firstDate: DateTime(2015),
+              lastDate: DateTime(2099),
+              initialDatePickerMode: DatePickerMode.year,
+            );
+            if (pickedDate != null && pickedDate != selectedDate) {
+              setState(() {
                 selectedDate = pickedDate;
-              }
-            },
-            child: Text(
-              '$selectedYear년 $selectedMonth월',
-              style: const TextStyle(color: Colors.white, fontSize: 20),
-            ),
+                formattedDate = DateFormat('yyyy년 MM월').format(selectedDate);
+              });
+            }
+          },
+          child: Text(
+            formattedDate,
+            style: const TextStyle(color: Colors.white, fontSize: 20),
           ),
-        ],
+        ),
       ),
       body: Column(
         children: [
           Flexible(
-            child: makeDiaryList(dummydiaries),
+            child: makeDiaryList(dummydiaries, selectedDate),
           ),
         ],
       ),
     );
   }
 
-  ListView makeDiaryList(List<DiaryModel> diaries) {
+  ListView makeDiaryList(List<DiaryModel> diaries, DateTime selectedDate) {
+    final filteredDiaries = diaries
+        .where((diary) =>
+            diary.date.year == selectedDate.year &&
+            diary.date.month == selectedDate.month)
+        .toList();
     return ListView.separated(
       scrollDirection: Axis.vertical,
-      itemCount: diaries.length,
+      itemCount: filteredDiaries.length,
       itemBuilder: (context, index) {
-        var diary = diaries[index];
+        var diary = filteredDiaries[index];
         return Diary(
-            id: diary.id,
-            date: diary.date,
-            content: diary.content,
-            emotions: diary.emotions,
-            playlist: diary.playlist);
+          id: diary.id,
+          date: diary.date,
+          content: diary.content,
+          emotions: diary.emotions,
+          playlist: diary.playlist,
+        );
       },
       separatorBuilder: (context, index) => const SizedBox(
         height: 15,
