@@ -3,6 +3,7 @@ import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/theme/colors.dart';
 import 'package:emolist/widgets/playlist_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<TrackModel> dummyplaylists;
@@ -34,6 +35,12 @@ class HomeScreen extends StatelessWidget {
         super(key: key);
   @override
   Widget build(BuildContext context) {
+    DateTime currentDate = DateTime.now();
+    DateTime oneYearAgo =
+        DateTime(currentDate.year - 1, currentDate.month, currentDate.day - 1);
+    String formattedDate =
+        '${DateFormat('yyyy.MM.dd').format(oneYearAgo)} ~ ${DateFormat('yyyy.MM.dd').format(currentDate)}';
+
     final width = MediaQuery.of(context).size.width * 0.75;
     const double height = 24;
     final borderRadius = BorderRadius.circular(10);
@@ -90,11 +97,11 @@ class HomeScreen extends StatelessWidget {
                 child: makePlayList(dummyplaylists)),
           ), // 더미데이터
 
-          const Padding(
-            padding: EdgeInsets.only(left: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
             child: Row(
               children: [
-                Text(
+                const Text(
                   'EMOTION',
                   style: TextStyle(
                     fontSize: 24,
@@ -102,12 +109,12 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Text(
-                  '2023.02.18 ~ 2024.02.20',
-                  style: TextStyle(
+                  formattedDate,
+                  style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
                       color: grey02),
