@@ -47,10 +47,6 @@ class Track extends StatelessWidget {
                   width: 50,
                   height: 50,
                 ),
-                trailing: Icon(
-                  liked ? Icons.favorite : Icons.favorite_border,
-                  color: Colors.red,
-                ),
               )
             ],
           ),

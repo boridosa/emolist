@@ -126,12 +126,6 @@ class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
                             width: 65,
                             height: 65,
                           ),
-                          trailing: Icon(
-                            track.liked
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: Colors.red,
-                          ),
                         )
                     ],
                   ),
