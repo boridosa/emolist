@@ -1,44 +1,132 @@
+import 'package:emolist/src/constants/emotion.dart';
+import 'package:emolist/src/models/diary_model.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/widgets/track_widget.dart';
 import 'package:flutter/material.dart';
 
 class PlaylistScreen extends StatelessWidget {
-  final List<TrackModel> dummytracks;
+  final List<DiaryModel> dummydiaries = [
+    DiaryModel(
+      id: '1',
+      date: DateTime(2022, 3, 1),
+      content: '가나다라마바사아자차카타파하',
+      emotions: {
+        Emotion.love: 0.41,
+        Emotion.happiness: 0.21,
+        Emotion.anger: 0.17,
+        Emotion.sadness: 0.13,
+        Emotion.hurt: 0.08,
+      },
+      playlist: [
+        const TrackModel(
+            id: '1',
+            title: 'd',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: true),
+        const TrackModel(
+            id: '1',
+            title: 'd',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: true),
+        const TrackModel(
+            id: '1',
+            title: 'd',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: false),
+      ],
+    ),
+    DiaryModel(
+      id: '1',
+      date: DateTime(2024, 3, 2),
+      content:
+          '가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하',
+      emotions: {
+        Emotion.love: 0.41,
+        Emotion.happiness: 0.21,
+        Emotion.anger: 0.17,
+        Emotion.sadness: 0.13,
+        Emotion.hurt: 0.08,
+      },
+      playlist: const [
+        TrackModel(
+            id: '1',
+            title: 'Butter',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: true),
+        TrackModel(
+            id: '1',
+            title: 'Good Day',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: false),
+        TrackModel(
+            id: '1',
+            title: 'Happiness',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: true),
+      ],
+    )
+  ];
 
   // ignore: use_super_parameters
-  const PlaylistScreen({Key? key})
-      : dummytracks = const [
-          TrackModel(
-            id: '1',
-            title: 'Song 1',
-            artists: ['Artist 1'],
-            cover: 'assets/images/trackImage.png',
-            liked: true,
-          ),
-          TrackModel(
-            id: '2',
-            title: 'Song 2',
-            artists: ['Artist 1'],
-            cover: 'assets/images/trackImage.png',
-            liked: true,
-          ),
-          TrackModel(
-            id: '3',
-            title: 'Song 3',
-            artists: ['Artist 1'],
-            cover: 'assets/images/trackImage.png',
-            liked: true,
-          ),
-        ],
-        super(key: key);
+  PlaylistScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (dummydiaries.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: Text(
+            '플레이리스트가 없습니다.',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      );
+    }
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(child: makeTrackList(dummytracks)),
-        ],
+        body: ListView.builder(
+      itemCount: dummydiaries.length,
+      itemBuilder: (context, index) {
+        final diary = dummydiaries[index];
+
+        final formattedDate = '${diary.date.year}.${diary.date.month}';
+
+        final bool isFirstOrDifferentMonth = index == 0 ||
+            formattedDate !=
+                '${dummydiaries[index - 1].date.year}.${dummydiaries[index - 1].date.month}';
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (isFirstOrDifferentMonth) _buildDateDivider(formattedDate),
+            for (final track in diary.playlist)
+              Track(
+                  id: track.id,
+                  title: track.title,
+                  artists: track.artists,
+                  cover: track.cover,
+                  liked: track.liked)
+          ],
+        );
+      },
+    ));
+  }
+
+  Widget _buildDateDivider(String formattedDate) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      color: Colors.grey[200],
+      child: Text(
+        formattedDate,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
