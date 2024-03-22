@@ -27,6 +27,7 @@ class MainScreen extends StatelessWidget {
         body: body,
         bottomNavigationBar: NavigationBar(
           backgroundColor: black03,
+          indicatorColor: Colors.transparent,
           destinations: const [
             NavigationDestination(
               selectedIcon: FaIcon(
@@ -37,10 +38,18 @@ class MainScreen extends StatelessWidget {
               label: '홈',
             ),
             NavigationDestination(
+              selectedIcon: FaIcon(
+                FontAwesomeIcons.book,
+                color: Colors.white,
+              ),
               icon: FaIcon(FontAwesomeIcons.book),
               label: '일기',
             ),
             NavigationDestination(
+              selectedIcon: FaIcon(
+                FontAwesomeIcons.headphones,
+                color: Colors.white,
+              ),
               icon: FaIcon(FontAwesomeIcons.headphones),
               label: '플레이리스트',
             ),
