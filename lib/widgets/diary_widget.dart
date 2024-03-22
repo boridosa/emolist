@@ -1,6 +1,7 @@
 import 'package:emolist/src/constants/emotion.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/src/screens/diary_detail_screen.dart';
+import 'package:emolist/theme/colors.dart';
 import 'package:emolist/widgets/track_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -52,7 +53,7 @@ class Diary extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: const Color(0xFF434343),
+              color: black03,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,11 +82,19 @@ class Diary extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Text(content,
-                          style: const TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: const BoxDecoration(
+                      color: deepGrey03,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(content,
+                          style: const TextStyle(color: Colors.white)),
+                    )),
               ],
             ),
           )
