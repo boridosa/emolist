@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class DiaryDetailScreen extends StatefulWidget {
   final String id;
-  final DateTime date;
+  DateTime date;
   String content;
   final Map<Emotion, double> emotions;
   final List<TrackModel> playlist;
@@ -48,7 +48,8 @@ class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
                               playlist: widget.playlist)));
                   if (newContent != null) {
                     setState(() {
-                      widget.content = newContent;
+                      widget.content = newContent.content;
+                      widget.date = newContent.date;
                     });
                   }
                 },
