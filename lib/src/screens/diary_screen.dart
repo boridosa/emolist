@@ -2,6 +2,7 @@ import 'package:emolist/src/constants/emotion.dart';
 import 'package:emolist/src/models/diary_model.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/widgets/diary_widget.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -138,11 +139,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
         elevation: 2,
         title: TextButton(
           onPressed: () async {
-            final DateTime? pickedDate = await showDatePicker(
+            final pickedDate = await showMonthYearPicker(
               context: context,
+              initialDate: DateTime.now(),
               firstDate: DateTime(2015),
               lastDate: DateTime(2099),
-              initialDatePickerMode: DatePickerMode.year,
             );
             if (pickedDate != null && pickedDate != selectedDate) {
               setState(() {

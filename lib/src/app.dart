@@ -1,6 +1,7 @@
+import 'package:emolist/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:month_year_picker/month_year_picker.dart';
 import 'constants/route_path.dart';
 import 'screens/diary_screen.dart';
 import 'screens/home_screen.dart';
@@ -17,8 +18,13 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       title: 'Emolist',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-        scaffoldBackgroundColor: const Color(0xFF252525),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        scaffoldBackgroundColor: black01,
+        floatingActionButtonTheme:
+            const FloatingActionButtonThemeData(backgroundColor: green02),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: black02,
+            selectedIconTheme: IconThemeData(color: grey01)),
         useMaterial3: true,
       ),
       routerConfig: GoRouter(
@@ -28,6 +34,9 @@ class App extends StatelessWidget {
           _createMainRoute(),
         ],
       ),
+      localizationsDelegates: const [
+        MonthYearPickerLocalizations.delegate,
+      ],
     );
   }
 
@@ -85,7 +94,7 @@ class App extends StatelessWidget {
       path: RoutePath.playlist.path,
       pageBuilder: (context, state) => NoTransitionPage(
         key: state.pageKey,
-        child: const PlaylistScreen(),
+        child: PlaylistScreen(),
       ),
       parentNavigatorKey: parentNavigatorKey,
     );

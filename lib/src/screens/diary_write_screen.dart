@@ -83,7 +83,7 @@ class _DiaryWriteScreenState extends State<DiaryWriteScreen> {
                           context: context,
                           firstDate: DateTime(2015),
                           lastDate: DateTime(2099),
-                          initialDatePickerMode: DatePickerMode.year,
+                          initialEntryMode: DatePickerEntryMode.calendarOnly,
                         );
                         if (pickedDate != null && pickedDate != widget.date) {
                           setState(() {
