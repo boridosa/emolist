@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class PlaylistScreen extends StatelessWidget {
   final List<DiaryModel> dummydiaries = [
-    DiaryModel(
+    /* DiaryModel(
       id: '1',
       date: DateTime(2022, 3, 1),
       content: '가나다라마바사아자차카타파하',
@@ -104,7 +104,9 @@ class PlaylistScreen extends StatelessWidget {
             liked: true),
       ],
     )
+ */
   ];
+
   // ignore: use_super_parameters
   PlaylistScreen({Key? key}) : super(key: key);
   @override
@@ -114,8 +116,9 @@ class PlaylistScreen extends StatelessWidget {
       return const Scaffold(
         body: Center(
           child: Text(
-            '플레이리스트가 없습니다.',
+            '플레이리스트가 없어요.\n일기를 작성하고 플레이리스트를 받아 보세요.',
             style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
           ),
         ),
       );
