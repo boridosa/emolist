@@ -1,3 +1,4 @@
+import 'package:emolist/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 // 플레이리스트 화면에 들어갈 트랙묶음 위젯
@@ -40,7 +41,7 @@ class Track extends StatelessWidget {
                 ),
                 subtitle: Text(
                   artists.join(', '),
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: grey02),
                 ),
                 leading: Image.asset(
                   cover,

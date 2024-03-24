@@ -70,14 +70,46 @@ class PlaylistScreen extends StatelessWidget {
             cover: 'assets/images/trackImage.png',
             liked: true),
       ],
+    ),
+    DiaryModel(
+      id: '1',
+      date: DateTime(2024, 3, 2),
+      content:
+          '가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하가나다라마바사아자차카타파하',
+      emotions: {
+        Emotion.love: 0.41,
+        Emotion.happiness: 0.21,
+        Emotion.anger: 0.17,
+        Emotion.sadness: 0.13,
+        Emotion.hurt: 0.08,
+      },
+      playlist: const [
+        TrackModel(
+            id: '1',
+            title: 'Butter',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: true),
+        TrackModel(
+            id: '1',
+            title: 'Good Day',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: false),
+        TrackModel(
+            id: '1',
+            title: 'Happiness',
+            artists: ['d'],
+            cover: 'assets/images/trackImage.png',
+            liked: true),
+      ],
     )
   ];
-
   // ignore: use_super_parameters
   PlaylistScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width * 0.35;
     if (dummydiaries.isEmpty) {
       return const Scaffold(
         body: Center(
@@ -103,7 +135,8 @@ class PlaylistScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (isFirstOrDifferentMonth) _buildDateDivider(formattedDate),
+            if (isFirstOrDifferentMonth)
+              _buildDateDivider(formattedDate, width),
             for (final track in diary.playlist)
               Track(
                   id: track.id,
@@ -117,17 +150,34 @@ class PlaylistScreen extends StatelessWidget {
     ));
   }
 
-  Widget _buildDateDivider(String formattedDate) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      color: Colors.grey[200],
-      child: Text(
-        formattedDate,
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
+  Widget _buildDateDivider(String formattedDate, double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 1,
+          width: width,
+          color: Colors.grey,
         ),
-      ),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          formattedDate,
+          style: const TextStyle(
+            color: Colors.grey,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Container(
+          height: 1,
+          width: width,
+          color: Colors.grey,
+        ),
+      ],
     );
   }
 
