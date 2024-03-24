@@ -33,33 +33,44 @@ class _DiaryDetailScreenState extends State<DiaryDetailScreen> {
         iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: const Color(0xFF252525),
         actions: <Widget>[
-          ElevatedButton(
-            onPressed: () async {
-              final newContent = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DiaryWriteScreen(
-                          id: widget.id,
-                          date: widget.date,
-                          content: widget.content,
-                          emotions: widget.emotions,
-                          playlist: widget.playlist)));
-              if (newContent != null) {
-                setState(() {
-                  widget.content = newContent;
-                });
-              }
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green),
-            ),
-            child: const Text(
-              '수정',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final newContent = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DiaryWriteScreen(
+                              id: widget.id,
+                              date: widget.date,
+                              content: widget.content,
+                              emotions: widget.emotions,
+                              playlist: widget.playlist)));
+                  if (newContent != null) {
+                    setState(() {
+                      widget.content = newContent;
+                    });
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+                child: const Text(
+                  '수정',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(
+                width: 20,
+              )
+            ],
           ),
         ],
       ),

@@ -36,27 +36,38 @@ class _DiaryWriteScreenState extends State<DiaryWriteScreen> {
         iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: const Color(0xFF252525),
         actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
-              final newDiary = DiaryModel(
-                id: 'id',
-                date: DateTime.now(),
-                content: _controller.text,
-                emotions: {},
-                playlist: [],
-              );
-              Navigator.pop(context, newDiary);
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green),
-            ),
-            child: const Text(
-              '완료',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  final newDiary = DiaryModel(
+                    id: 'id',
+                    date: DateTime.now(),
+                    content: _controller.text,
+                    emotions: {},
+                    playlist: [],
+                  );
+                  Navigator.pop(context, newDiary);
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+                child: const Text(
+                  '완료',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(
+                width: 20,
+              )
+            ],
           ),
         ],
       ),
