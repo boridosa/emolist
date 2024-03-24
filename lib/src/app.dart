@@ -68,7 +68,7 @@ class App extends StatelessWidget {
       path: RoutePath.home.path,
       pageBuilder: (context, state) => NoTransitionPage(
         key: state.pageKey,
-        child: const HomeScreen(),
+        child: HomeScreen(),
       ),
       parentNavigatorKey: parentNavigatorKey,
     );

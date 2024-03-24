@@ -1,4 +1,5 @@
 import 'package:emolist/src/constants/emotion.dart';
+import 'package:emolist/src/models/diary_model.dart';
 import 'package:emolist/src/models/track_model.dart';
 import 'package:emolist/theme/colors.dart';
 import 'package:emolist/widgets/playlist_widget.dart';
@@ -6,31 +7,48 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
-  final List<TrackModel> dummyplaylists;
+  final List<DiaryModel> dummyplaylists;
   // ignore: use_super_parameters
-  const HomeScreen({Key? key})
-      : dummyplaylists = const [
-          TrackModel(
-            id: '1',
-            title: 'Song 1',
-            artists: ['Artist 1'],
-            cover: 'assets/images/trackImage.png',
-            liked: true,
-          ),
-          TrackModel(
-            id: '2',
-            title: 'Song 2',
-            artists: ['Artist 1'],
-            cover: 'assets/images/trackImage.png',
-            liked: true,
-          ),
-          TrackModel(
-            id: '3',
-            title: 'Song 3',
-            artists: ['Artist 1'],
-            cover: 'assets/images/trackImage.png',
-            liked: true,
-          ),
+  HomeScreen({Key? key})
+      : dummyplaylists = [
+          DiaryModel(
+              id: '1',
+              date: DateTime(2024, 2, 16),
+              content: 'ㅎㅎ',
+              emotions: {
+                Emotion.love: 0.41,
+                Emotion.happiness: 0.21,
+                Emotion.anger: 0.17,
+                Emotion.sadness: 0.13,
+                Emotion.hurt: 0.08,
+              },
+              playlist: [
+                const TrackModel(
+                    id: '1',
+                    title: 'd',
+                    artists: ['d'],
+                    cover: 'assets/images/trackImage.png',
+                    liked: true),
+              ]),
+          DiaryModel(
+              id: '1',
+              date: DateTime(2024, 2, 15),
+              content: 'ㅎㅎ',
+              emotions: {
+                Emotion.love: 0.41,
+                Emotion.happiness: 0.21,
+                Emotion.anger: 0.17,
+                Emotion.sadness: 0.13,
+                Emotion.hurt: 0.08,
+              },
+              playlist: [
+                const TrackModel(
+                    id: '1',
+                    title: 'd',
+                    artists: ['d'],
+                    cover: 'assets/images/trackImage.png',
+                    liked: true),
+              ]),
         ],
         super(key: key);
   @override
@@ -63,7 +81,7 @@ class HomeScreen extends StatelessWidget {
 
     String message = '';
     if (maxEmotion != null) {
-      message = '지난 1년동안 ${emotionToString(maxEmotion!)}을(를) 가장 많이 느끼셨군요!';
+      message = '지난 1년동안 ${emotionToString(maxEmotion!)} 가장 많이 느끼셨군요!';
     }
     return Scaffold(
       appBar: AppBar(
@@ -90,7 +108,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-
           Expanded(
             child: Padding(
                 padding: const EdgeInsets.only(left: 20),
@@ -142,7 +159,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 50,
+            height: 70,
           ),
         ],
       ),
@@ -208,21 +225,21 @@ class HomeScreen extends StatelessWidget {
   String emotionToString(Emotion emotion) {
     switch (emotion) {
       case Emotion.love:
-        return '사랑';
+        return '사랑을';
       case Emotion.happiness:
-        return '행복';
+        return '행복을';
       case Emotion.anger:
-        return '분노';
+        return '분노를';
       case Emotion.sadness:
-        return '슬픔';
+        return '슬픔을';
       case Emotion.hurt:
-        return '상처';
+        return '상처를';
       default:
         return '알 수 없는 감정';
     }
   }
 
-  ListView makePlayList(List<TrackModel> playlists) {
+  ListView makePlayList(List<DiaryModel> playlists) {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: playlists.length,
@@ -230,10 +247,10 @@ class HomeScreen extends StatelessWidget {
         var playlist = playlists[index];
         return Playlist(
             id: playlist.id,
-            title: playlist.title,
-            artists: playlist.artists,
-            cover: playlist.cover,
-            liked: playlist.liked);
+            date: playlist.date,
+            content: playlist.content,
+            emotions: playlist.emotions,
+            playlist: playlist.playlist);
       },
       separatorBuilder: (context, index) => const SizedBox(width: 20),
     );
